@@ -4,7 +4,7 @@ package hard;
 public class Main {
   public static void main(String[] args) {
 
-    Box<String> stringBox = new Box<>("Hello, Generics!");
+    Box<String> stringBox = new Box<>("Hello, WOrld!");
     System.out.println("Stored: " + stringBox.getItem());
     stringBox.showType();
 
