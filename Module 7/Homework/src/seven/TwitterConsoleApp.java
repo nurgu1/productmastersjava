@@ -1,6 +1,6 @@
 package seven;
-import java.util.*;
 
+import java.util.Scanner;
 
 public class TwitterConsoleApp {
   private static final Scanner scanner = new Scanner(System.in);
@@ -22,6 +22,12 @@ public class TwitterConsoleApp {
       showMenu();
       int choice = getIntInput();
       switch (choice) {
+        case 1 -> createPost(currentUser);
+        case 2 -> likePost();
+        case 3 -> repostPost();
+        case 4 -> twitterService.showAllPosts();
+        case 5 -> showPopularPosts();
+        case 6 -> twitterService.showUserPosts(currentUser);
         case 7 -> {
           System.out.println("Выход...");
           return;
@@ -29,6 +35,30 @@ public class TwitterConsoleApp {
         default -> System.out.println("Некорректный ввод. Попробуйте снова.");
       }
     }
+  }
+
+  private void createPost(User author) {
+    System.out.print("Введите текст поста (макс. 280 символов): ");
+    String content = scanner.nextLine().trim();
+    twitterService.createPost(author, content);
+  }
+
+  private void likePost() {
+    System.out.print("Введите ID поста, который хотите лайкнуть: ");
+    int postId = getIntInput();
+    twitterService.likePost(postId);
+  }
+
+  private void repostPost() {
+    System.out.print("Введите ID поста, который хотите репостнуть: ");
+    int postId = getIntInput();
+    twitterService.repostPost(postId);
+  }
+
+  private void showPopularPosts() {
+    System.out.print("Введите количество популярных постов: ");
+    int count = getIntInput();
+    twitterService.showPopularPosts(count);
   }
 
   private int getIntInput() {
@@ -53,5 +83,4 @@ public class TwitterConsoleApp {
     System.out.println("7. Выход");
     System.out.print("Выберите действие: ");
   }
-
 }
