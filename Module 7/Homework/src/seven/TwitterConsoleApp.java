@@ -16,6 +16,7 @@ public class TwitterConsoleApp {
     User currentUser = new User(userName);
     System.out.println("Добро пожаловать, " + currentUser.getName() + "!");
 
+    twitterService.loadPostsFromFile(); // Загружаем посты при запуске
     twitterService.initializePosts();
 
     while (true) {
@@ -28,7 +29,10 @@ public class TwitterConsoleApp {
         case 4 -> twitterService.showAllPosts();
         case 5 -> showPopularPosts();
         case 6 -> twitterService.showUserPosts(currentUser);
-        case 7 -> {
+        case 7 -> addComment(); // Добавить комментарий
+        case 8 -> deletePost(); // Удалить пост
+        case 9 -> {
+          twitterService.savePostsToFile(); // Сохраняем посты перед выходом
           System.out.println("Выход...");
           return;
         }
@@ -61,6 +65,20 @@ public class TwitterConsoleApp {
     twitterService.showPopularPosts(count);
   }
 
+  private void addComment() {
+    System.out.print("Введите ID поста, к которому хотите добавить комментарий: ");
+    int postId = getIntInput();
+    System.out.print("Введите ваш комментарий: ");
+    String comment = scanner.nextLine().trim();
+    twitterService.addCommentToPost(postId, comment);
+  }
+
+  private void deletePost() {
+    System.out.print("Введите ID поста, который хотите удалить: ");
+    int postId = getIntInput();
+    twitterService.deletePost(postId);
+  }
+
   private int getIntInput() {
     int input;
     try {
@@ -80,7 +98,9 @@ public class TwitterConsoleApp {
     System.out.println("4. Показать все посты");
     System.out.println("5. Показать популярные посты");
     System.out.println("6. Показать мои посты");
-    System.out.println("7. Выход");
+    System.out.println("7. Добавить комментарий");
+    System.out.println("8. Удалить пост");
+    System.out.println("9. Выход");
     System.out.print("Выберите действие: ");
   }
 }
