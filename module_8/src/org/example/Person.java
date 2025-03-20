@@ -1,5 +1,4 @@
 package org.example;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,3 +13,4 @@ public class Person {
     private int age;
     private String city;
 }
+
